@@ -1,0 +1,23 @@
+-
+ name: this playbook will create nginx
+ hosts: servers
+ become: yes
+
+ tasks:
+   - name: this is to install nginx
+     apt:
+       name: nginx
+       state: latest
+   - name: to enable nginx
+     service:
+       name: nginx
+       state: started
+       enabled: yes
+     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+   - name: this is to install docker 
+     apt:
+       name: docker.io
+       state: latest
+     when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Red Hat Enterprise Linux' 
+
